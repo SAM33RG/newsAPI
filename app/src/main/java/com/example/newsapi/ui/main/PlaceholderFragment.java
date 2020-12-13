@@ -58,9 +58,10 @@ public class PlaceholderFragment extends Fragment {
 
     private void handleResponseTopHeadlines(TopHeadlinesResponse topHeadlinesResponse) {
         Log.d(Constants.TAG,topHeadlinesResponse.toString());
-        TopHeadlinesAdapter topHeadlinesAdapter = new TopHeadlinesAdapter(new ArrayList<>(Arrays.asList(topHeadlinesResponse.getArticles())),getActivity());
+        TopHeadlinesAdapter topHeadlinesAdapter = new TopHeadlinesAdapter(new ArrayList<>(Arrays.asList(topHeadlinesResponse.getArticles())),getActivity(),getActivity().getSupportFragmentManager());
         recyclerView.setAdapter(topHeadlinesAdapter);
         topHeadlinesAdapter.notifyDataSetChanged();
+
     }
 
     private void handleErrorTopHeadlines(Throwable throwable) {

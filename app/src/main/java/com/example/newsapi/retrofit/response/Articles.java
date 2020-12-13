@@ -1,6 +1,8 @@
 package com.example.newsapi.retrofit.response;
 
-public class Articles
+import java.io.Serializable;
+
+public class Articles implements Serializable
 {
     private String publishedAt;
 

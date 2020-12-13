@@ -1,6 +1,8 @@
 package com.example.newsapi.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +10,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.newsapi.ArticlesActivity;
 import com.example.newsapi.R;
 import com.example.newsapi.retrofit.response.Articles;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class TopHeadlinesAdapter extends RecyclerView.Adapter<TopHeadlinesAdapter.ViewHolder> {
     ArrayList<Articles> articlesArrayList;
     Activity activity;
+    FragmentManager fragmentManager;
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,7 +50,16 @@ public class TopHeadlinesAdapter extends RecyclerView.Adapter<TopHeadlinesAdapte
                         .centerCrop()
                         .into(holder.imageView);
 
+
             }
+            holder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getActivity().getApplicationContext(), ArticlesActivity.class);
+                    i.putExtra("article", (Serializable) a);
+                    getActivity().startActivity(i);
+                }
+            });
         }
     }
 
@@ -56,16 +71,19 @@ public class TopHeadlinesAdapter extends RecyclerView.Adapter<TopHeadlinesAdapte
     public class ViewHolder  extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public TextView textView;
+        public View layout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             textView = itemView.findViewById(R.id.textView);
+            layout = itemView.findViewById(R.id.layout);
         }
     }
 
-    public TopHeadlinesAdapter(ArrayList<Articles> articlesArrayList, Activity activity) {
+    public TopHeadlinesAdapter(ArrayList<Articles> articlesArrayList, Activity activity, FragmentManager fragmentManager) {
         this.articlesArrayList = articlesArrayList;
         this.activity = activity;
+        this.fragmentManager = fragmentManager;
     }
 
     public ArrayList<Articles> getArticlesArrayList() {
