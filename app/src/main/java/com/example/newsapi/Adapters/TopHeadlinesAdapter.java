@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newsapi.R;
 import com.example.newsapi.retrofit.response.Articles;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,16 @@ public class TopHeadlinesAdapter extends RecyclerView.Adapter<TopHeadlinesAdapte
         Articles a = articlesArrayList.get(position);
         if(a!=null){
             holder.textView.setText(a.getTitle());
+            if(a.getUrlToImage()!=null){
+                Picasso.get()
+                        .load(a.getUrlToImage())
+                        .placeholder(R.drawable.loading)
+                        .error(R.drawable.warning)
+                        .resize(128, 72)
+                        .centerCrop()
+                        .into(holder.imageView);
+
+            }
         }
     }
 
