@@ -84,7 +84,7 @@ public class SearchFragment extends Fragment {
 
 
         if(search !=null){
-            mTopHeadlinesSubscription.add(NetworkUtil.getRetrofit().topHeadlines(search, Constants.API_KEY)
+            mTopHeadlinesSubscription.add(NetworkUtil.getRetrofit().everything(search, Constants.API_KEY)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(this::handleResponseTopHeadlines,this::handleErrorTopHeadlines));

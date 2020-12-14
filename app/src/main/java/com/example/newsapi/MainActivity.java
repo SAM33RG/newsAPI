@@ -1,6 +1,7 @@
 package com.example.newsapi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onSearchAction(String currentQuery) {
                 Log.d(Constants.TAG,currentQuery);
+                Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+                i.putExtra("search", currentQuery);
+                startActivity(i);
             }
         });
 //        searchBar.setOnSearchActionListener(this);

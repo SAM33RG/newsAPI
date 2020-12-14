@@ -12,5 +12,8 @@ public interface RetrofitInterface {
     @GET("top-headlines")
     Observable<TopHeadlinesResponse> topHeadlines(@Query("country") String country, @Query("apiKey") String apikey);
 
+    @GET("everything")
+    Observable<TopHeadlinesResponse> everything(@Query("q") String search, @Query("apiKey") String apikey);
+
 
 }
