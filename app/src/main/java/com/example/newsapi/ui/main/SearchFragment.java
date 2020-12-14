@@ -5,13 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,19 +27,19 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private CompositeSubscription  mTopHeadlinesSubscription;
     private RecyclerView recyclerView;
 
-    private String country ;
+    private String search;
 
-    public static PlaceholderFragment newInstance(String country) {
-        PlaceholderFragment fragment = new PlaceholderFragment();
+    public static SearchFragment newInstance(String search) {
+        SearchFragment fragment = new SearchFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(ARG_SECTION_NUMBER, country);
+        bundle.putString(ARG_SECTION_NUMBER, search);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -83,12 +79,12 @@ public class PlaceholderFragment extends Fragment {
 
 
         if (getArguments() != null) {
-            country = getArguments().getString(ARG_SECTION_NUMBER);
+            search = getArguments().getString(ARG_SECTION_NUMBER);
         }
 
 
-        if(country!=null){
-            mTopHeadlinesSubscription.add(NetworkUtil.getRetrofit().topHeadlines(country, Constants.API_KEY)
+        if(search !=null){
+            mTopHeadlinesSubscription.add(NetworkUtil.getRetrofit().topHeadlines(search, Constants.API_KEY)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(this::handleResponseTopHeadlines,this::handleErrorTopHeadlines));

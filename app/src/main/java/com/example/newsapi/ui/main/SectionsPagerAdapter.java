@@ -8,35 +8,37 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.newsapi.Models.Country;
 import com.example.newsapi.R;
+
+import java.util.ArrayList;
 
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
-    private final Context mContext;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    ArrayList<Country> countries;
+
+    public SectionsPagerAdapter( ArrayList<Country> countries, FragmentManager fm) {
         super(fm);
-        mContext = context;
+        this.countries = countries;
     }
 
     @Override
     public Fragment getItem(int position) {
 
-        return PlaceholderFragment.newInstance(position + 1);
+        return PlaceholderFragment.newInstance(countries.get(position).getCode());
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return mContext.getResources().getString(TAB_TITLES[position]);
+        return  countries.get(position).getName();
     }
 
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 2;
+        return countries.size();
     }
 }
